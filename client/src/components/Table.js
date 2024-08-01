@@ -1,33 +1,51 @@
 import React from "react";
 import axios from 'axios';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import ModalAdd from "./ModalAdd";
+import ModalEdit from "./ModalEdit";
 
 function Table(props) {
     const [data, setData] = useState([]);
-    const getData = async () => {
+    const [id, setId] = useState({ _id: "", index: 0 });
+    async function getData() {
         try {
             const response = await axios.get('http://localhost:8000/getCar')
-            console.log(response.data);
-            setData(response.data)
+            setData(response.data);
         } catch (error) {
             console.error('Error:', error);
         }
     }
 
+    async function delCar(_id) {
+        try {
+            const response = await axios.delete("http://localhost:8000/deleteCar", { data: { _id } });
+            await getData();
+        }
+        catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    useEffect(() => {
+        getData();
+    }, []);
+
     return (
         <div>
-            <button onClick={getData}>Get Data</button>
+            <ModalAdd> </ModalAdd>
+            <ModalEdit _id={id._id} index={id.index}> </ModalEdit>
+            <button onClick={getData}>Refresh</button>
             <table className="table">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">numberPlate</th>
-                        <th scope="col">brand</th>
-                        <th scope="col">model</th>
-                        <th scope="col">note</th>
-                        <th scope="col">year</th>
-                        <th scope="col">Edit</th>
-                        <th scope="col">Del</th>
+                        <th scope="col">No.</th>
+                        <th scope="col">Number Plate</th>
+                        <th scope="col">Brand</th>
+                        <th scope="col">Model</th>
+                        <th scope="col">Note</th>
+                        <th scope="col">Year</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,8 +57,8 @@ function Table(props) {
                             <td>{Car.model}</td>
                             <td>{Car.note.join(', ')}</td>
                             <td>{Car.year}</td>
-                            <td><button onClick={() => console.log(Car._id)}>Edit</button></td>
-                            <td><button>X</button></td>
+                            <td><button onClick={() => setId({ _id: Car._id, index: index + 1 })} type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">Edit Car</button></td>
+                            <td><button onClick={() => delCar(Car._id)}>X</button></td>
                         </tr>
                     ))}
 
