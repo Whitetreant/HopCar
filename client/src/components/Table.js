@@ -7,6 +7,11 @@ import ModalEdit from "./ModalEdit";
 function Table(props) {
     const [data, setData] = useState([]);
     const [id, setId] = useState({ _id: "", index: 0 });
+    /**
+ * This function is responsible for fetching car data from the server and updating the state.
+ *
+ * @returns {void}
+ */
     async function getData() {
         try {
             const response = await axios.get('http://localhost:8000/getCar')
@@ -16,6 +21,12 @@ function Table(props) {
         }
     }
 
+    /**
+     * This function is responsible for deleting a car from the server and updating the state.
+     *
+     * @param {string} _id - The unique identifier of the car to be deleted.
+     * @returns {void}
+     */
     async function delCar(_id) {
         try {
             const response = await axios.delete("http://localhost:8000/deleteCar", { data: { _id } });
@@ -26,6 +37,11 @@ function Table(props) {
         }
     }
 
+    /**
+     * This effect hook is responsible for fetching car data when the component mounts.
+     *
+     * @returns {void}
+     */
     useEffect(() => {
         getData();
     }, []);

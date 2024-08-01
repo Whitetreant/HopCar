@@ -11,9 +11,17 @@ function ModalEdit(props) {
             year: '',
         });
 
+    /**
+ * Handles the search functionality for editing car details.
+ * Updates the state with the input values.
+ *
+ * @param {Event} event - The event object from the input field change.
+ * @param {Object} props - The props passed to the component.
+ * @param {string} props._id - The unique identifier of the car.
+ * @param {Object} input - The current state of the input fields.
+ * @param {Function} setInput - The function to update the input state.
+ */
     function search(event) {
-
-
         let { name, value } = event.target;
         if (name === "note") {
             value = value.split(',')
@@ -25,8 +33,15 @@ function ModalEdit(props) {
         });
     }
 
+    /**
+     * Handles the edit car functionality.
+     * Validates the input fields and sends a PUT request to the server.
+     *
+     * @param {Event} event - The event object from the button click.
+     * @param {Object} input - The current state of the input fields.
+     * @returns {Promise<void>}
+     */
     async function editCar(event) {
-        console.log(input)
         if (!input.numberPlate || !input.brand || !input.model || !input.note || !input.year) {
             alert('Please fill all the fields');
             return;
@@ -34,7 +49,15 @@ function ModalEdit(props) {
 
         const response = await axios.put("http://localhost:8000/updateCar", { data: { input } });
 
-        alert('Car Successfully Add to Database');
+        alert('Car Successfully Added to Database');
+        setInput({
+            _id: '',
+            numberPlate: '',
+            brand: '',
+            model: '',
+            note: [],
+            year: '',
+        });
         return;
     }
     return <>
@@ -50,23 +73,23 @@ function ModalEdit(props) {
                     <div className="modal-body">
                         <div className="input-group input-group-sm mb-3">
                             <span className="input-group-text" id="inputGroup-sizing-sm">Plate Number</span>
-                            <input name="numberPlate" onChange={search} type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></input>
+                            <input value={input.numberPlate} name="numberPlate" onChange={search} type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></input>
                         </div>
                         <div className="input-group input-group-sm mb-3">
                             <span className="input-group-text" id="inputGroup-sizing-sm">Brand</span>
-                            <input name="brand" onChange={search} type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></input>
+                            <input value={input.brand} name="brand" onChange={search} type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></input>
                         </div>
                         <div className="input-group input-group-sm mb-3">
                             <span className="input-group-text" id="inputGroup-sizing-sm">Model</span>
-                            <input name="model" onChange={search} type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></input>
+                            <input value={input.model} name="model" onChange={search} type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></input>
                         </div>
                         <div className="input-group input-group-sm mb-3">
                             <span className="input-group-text" id="inputGroup-sizing-sm">Note</span>
-                            <input name="note" onChange={search} type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></input>
+                            <input value={input.note} name="note" onChange={search} type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></input>
                         </div>
                         <div className="input-group input-group-sm mb-3">
                             <span className="input-group-text" id="inputGroup-sizing-sm">Year</span>
-                            <input name="year" onChange={search} type="number" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></input>
+                            <input value={input.year} name="year" onChange={search} type="number" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></input>
                         </div>
                     </div>
                     <div className="modal-footer">

@@ -3,9 +3,6 @@ import Table from './components/Table';
 import React, { useState } from "react";
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
 
   return (
     <div>
@@ -16,6 +13,5 @@ function App() {
 
   );
 }
-
 
 export default App;
