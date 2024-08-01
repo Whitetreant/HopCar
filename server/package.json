@@ -4,7 +4,7 @@
   "description": "somchai's website",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Whitetreant/HopCar#readme",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongoose": "^8.5.2"
