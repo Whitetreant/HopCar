@@ -1,7 +1,7 @@
 # HopCar
 
 Somchaio's Website
-TO RUN
 
+TO RUN
 - npm start
 - node index.js (run in server directory)
