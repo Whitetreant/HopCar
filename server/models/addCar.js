@@ -1,11 +1,12 @@
 const carModel = require('../Schema/carSchema')
 async function sendCar(request) {
+    const data = request.data.input
     const saveCar = new carModel({
-        numberPlate: request.numberPlate,
-        brand: request.brand,
-        model: request.model,
-        note: request.note,
-        year: request.year
+        numberPlate: data.numberPlate,
+        brand: data.brand,
+        model: data.model,
+        note: data.note,
+        year: data.year
     });
     await saveCar.save();
     console.log("Car send successfully");

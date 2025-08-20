@@ -30,7 +30,6 @@ app.get('/', (req, res) => {
 
 app.post('/addCar', (req, res) => {
     if (!req.body) {
-        console.log(res.statusCode)
         return res.status(400).send('No JSON data received');
     }
     try {
@@ -44,7 +43,6 @@ app.post('/addCar', (req, res) => {
 )
 
 app.get('/getCar', async (req, res) => {
-    console.log('getCar')
     try {
         const carList = await carModel.find();
         return res.status(200).json(carList);
@@ -60,7 +58,8 @@ app.put('/updateCar', (req, res) => {
         await carModel.findOneAndUpdate({ _id: id }, car)
         console.log("Car updated successfully");
     }
-    updateCar(req.body._id, req.body.Data)
+    updateCar(req.body.data.input._id, req.body.data.input)
+    return res.status(200).send("Successful");
 }
 )
 
@@ -70,6 +69,7 @@ app.delete('/deleteCar', (req, res) => {
         console.log("Car delete successfully");
     }
     delCar(req.body._id)
+    return res.status(200).send("Successful");
 }
 )
 
